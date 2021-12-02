@@ -1,0 +1,25 @@
+<!-- 
+<app-card *ngFor="let card of resetCards; let i=index" ></app-card> -->
+
+<h1>Memory Card Game - Clipboard Test</h1>
+<div *ngIf="!gameFinish; else gameWon">
+  <!-- Can be put into a different component -->
+  <div class="flip-box" *ngFor="let card of resetCards; let i=index" (click)="cardOpened(card)"
+    ngClass="{{i % 6 === 0?'clearBoth pullLeft':'pullLeft'}}">
+    <div class="flip-box-inner" [ngClass]="(card.status != 'default'?(card.status === 'opened'?'transformCard':''):'')">
+      <div class="flip-box-front">
+        <img class='cardImg' src="../assets/card/back.png" alt="Front">
+      </div>
+      <div class="flip-box-back">
+        <img class='cardImg' src="../assets/card/{{card.imgUrl}}" alt="{{card.type}}">
+      </div>
+    </div>
+  </div>
+  <div>{{totalTime}}</div>
+</div>
+
+<ng-template #gameWon>
+  <h1>Congratulations!</h1>
+  You have finished the game in {{totalTime}} time.<br>
+  <button class='btn-primary' (click)="resetGame()">Play Again</button>
+</ng-template>
